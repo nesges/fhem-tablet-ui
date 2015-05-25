@@ -82,16 +82,24 @@ var widget_slider = {
         localStorage.setItem("slider_"+device, storeval );
 
         if ($(this).hasClass('horizontal')){
-            if ($(this).hasClass('mini'))
-                $(this).css({'width': '60px','max-width': '60px','height':'0px'})
-            else
-                $(this).css({'width': '120px','max-width': '120px','height':'0px'});
+            if ($(this).data('width')) {
+                $(this).css({'width': $(this).data('width')+'px','max-width': $(this).data('width')+'px','height':'0px'});
+            } else {
+                if ($(this).hasClass('mini'))
+                    $(this).css({'width': '60px','max-width': '60px','height':'0px'});
+                else
+                    $(this).css({'width': '120px','max-width': '120px','height':'0px'});
+            }
         }
         else {
-            if ($(this).hasClass('mini'))
-                $(this).css({'height': '60px','max-height': '60px'})
-            else
-                $(this).css({'height': '120px','max-height': '120px'});
+            if ($(this).data('height')) {
+                $(this).css({'height': $(this).data('height')+'px','max-height': $(this).data('height')+'px'});
+            } else {
+                if ($(this).hasClass('mini'))
+                    $(this).css({'height': '60px','max-height': '60px'});
+                else
+                    $(this).css({'height': '120px','max-height': '120px'});
+            }
         }
 
        if ($(this).hasClass('readonly'))
