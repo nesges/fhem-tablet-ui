@@ -168,6 +168,7 @@ function initReadingsArray(get) {
         if(!readings[reading]){
             readings[reading] = true;
             pars.push(reading);
+            requestFhem(reading);
         }
     }
 }
@@ -201,12 +202,6 @@ function initWidgets() {
     //init widgets
     for (var widget_type in types) {
         plugins.load('widget_'+widget_type);
-    }
-
-    //get current values of readings
-    DEBUG && console.log('Request readings from FHEM');
-    for (var reading in readings) {
-        requestFhem(reading);
     }
 }
 
