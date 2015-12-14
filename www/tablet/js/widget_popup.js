@@ -2,9 +2,6 @@ if(typeof widget_widget == 'undefined') {
     dynamicload('js/widget_widget.js');
 }
 
-if (!$.fn.draggable)
-    dynamicload('../pgm2/jquery-ui.min.js', null, null, false);
-
 var widget_popup= $.extend({}, widget_widget, {
     widgetname: 'popup',
     hide: function(elem,mode) {
@@ -73,7 +70,15 @@ var widget_popup= $.extend({}, widget_widget, {
               }).html('x').appendTo(dialog);
 
             if (dialog && close && starter){
-                dialog.draggable();
+                if(elem.data('draggable')) {
+                    console.log(elem.data('draggable'));
+                    if (!$.fn.draggable) {
+                        console.log("widget_popup tries to load jquery ui. insert correct script tag into html header to avoid error (and this warning)")
+                        console.log('e.g.: <script type="text/javascript" src="../pgm2/jquery-ui.min.js"></script>');
+                        dynamicload('../pgm2/jquery-ui.min.js', null, null, false);
+                    }
+                    dialog.draggable();
+                }
                 dialog.css({'height':elem.data('height'),'width':elem.data('width')});
                 starter.css({'cursor': 'pointer'});
                 elem.closest('.gridster>ul>li').css({overflow: 'visible'});
